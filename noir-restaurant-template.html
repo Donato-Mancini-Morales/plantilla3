@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Noir — Restaurant Template</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<!--
+===========================================
+  NOIR — PREMIUM RESTAURANT TEMPLATE
+  Template by Atelier Web Studio
+  Instagram: @atelierwebstudio
+===========================================
+
+  HOW TO CUSTOMIZE
+  =================
+
+  1. RESTAURANT NAME
+     Search "NOIR" and replace with your name.
+
+  2. COLORS
+     Find :root and change:
+     --gold: #c9a84c   → your accent color
+     --cream: #f5f0e8  → your light color
+
+  3. TEXTS
+     Edit everything directly — menu items,
+     descriptions, address, hours, phone.
+
+  4. MENU ITEMS & PRICES
+     Find the <!-- MENU --> section and
+     update dish names, descriptions, prices.
+
+  5. IMAGES
+     Each .dish-img or .hero-img div can be
+     replaced with:
+     <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;"/>
+
+  6. FORM (make it work)
+     Connect the form to Formspree (free):
+     1. Go to formspree.io
+     2. Create a form → get your endpoint
+     3. Replace action="#" with your endpoint
+
+===========================================
+-->
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#080807;
+  --dark:#0f0f0e;
+  --card:#161614;
+  --border:#2a2a26;
+  --gold:#c9a84c;
+  --gold-dim:rgba(201,168,76,0.15);
+  --cream:#f5f0e8;
+  --muted:#7a7870;
+  --white:#f9f6f0;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-body:'Jost',sans-serif;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:var(--font-body);font-weight:300;line-height:1.7;overflow-x:hidden;}
+
+/* ── NAV ── */
+nav{
+  position:sticky;top:0;z-index:100;
+  background:rgba(8,8,7,0.95);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 6%;height:70px;
+}
+.nav-logo{
+  font-family:var(--font-serif);
+  font-size:1.7rem;font-weight:600;
+  letter-spacing:0.18em;color:var(--gold);
+  text-decoration:none;
+}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{
+  color:var(--muted);text-decoration:none;
+  font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-weight:400;transition:color 0.25s;
+}
+.nav-links a:hover{color:var(--white);}
+.nav-reserve{
+  font-family:var(--font-body);font-size:0.75rem;
+  letter-spacing:0.16em;text-transform:uppercase;font-weight:500;
+  color:var(--black);background:var(--gold);
+  border:none;padding:11px 24px;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:opacity 0.2s;
+}
+.nav-reserve:hover{opacity:0.85;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;
+  padding:0 6%;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 80% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+    linear-gradient(180deg,#080807 0%,#0d0c09 100%);
+}
+.hero-lines{
+  position:absolute;inset:0;
+  background-image:repeating-linear-gradient(90deg,transparent,transparent 119px,rgba(201,168,76,0.03) 120px);
+}
+.hero-content{position:relative;z-index:2;max-width:680px;}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:2rem;
+}
+.hero-eyebrow-line{width:40px;height:1px;background:var(--gold);}
+.hero-eyebrow-text{
+  font-size:0.72rem;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--gold);
+}
+.hero-title{
+  font-family:var(--font-serif);
+  font-size:clamp(4rem,9vw,7.5rem);
+  font-weight:300;line-height:0.9;
+  letter-spacing:0.04em;color:var(--white);
+  margin-bottom:2rem;
+}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{
+  font-size:1rem;color:var(--muted);
+  max-width:400px;margin-bottom:3rem;
+  line-height:1.8;
+}
+.hero-btns{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;}
+.btn-gold{
+  background:var(--gold);color:var(--black);
+  font-family:var(--font-body);font-weight:500;
+  font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;
+  border:none;padding:16px 36px;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  transition:opacity 0.2s;
+}
+.btn-gold:hover{opacity:0.85;}
+.btn-ghost{
+  background:transparent;color:var(--white);
+  font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;
+  border:1px solid var(--border);padding:16px 36px;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:border-color 0.25s;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.hero-right{
+  position:absolute;right:6%;top:50%;
+  transform:translateY(-50%);z-index:2;
+  display:flex;flex-direction:column;gap:0.5rem;
+  text-align:right;
+}
+.hero-award{
+  font-family:var(--font-serif);
+  font-size:0.85rem;font-style:italic;
+  color:var(--gold);letter-spacing:0.06em;
+}
+.hero-award-sub{
+  font-size:0.68rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:1rem;
+}
+
+/* ── SECTION COMMONS ── */
+section{padding:110px 6%;}
+.sep{height:1px;background:linear-gradient(to right,transparent,var(--border),transparent);}
+.eyebrow{
+  display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;
+}
+.eyebrow-line{width:30px;height:1px;background:var(--gold);}
+.eyebrow-text{font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);}
+.section-title{
+  font-family:var(--font-serif);
+  font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:300;line-height:1;
+  color:var(--white);margin-bottom:1rem;
+}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-sub{color:var(--muted);font-size:0.92rem;max-width:480px;line-height:1.8;}
+.section-header{
+  display:flex;justify-content:space-between;
+  align-items:flex-end;margin-bottom:4rem;
+  flex-wrap:wrap;gap:1.5rem;
+}
+
+/* ── ABOUT ── */
+.about{background:var(--dark);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.about-img{
+  height:520px;
+  background:linear-gradient(135deg,#1a1812,#0f0e0a);
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-serif);font-size:1rem;
+  font-style:italic;color:var(--muted);
+  letter-spacing:0.08em;
+}
+.about-text p{color:var(--muted);font-size:0.95rem;line-height:1.9;margin-bottom:1.5rem;}
+.about-stats{
+  display:flex;gap:2.5rem;margin-top:2.5rem;
+  padding-top:2.5rem;border-top:1px solid var(--border);
+}
+.about-stat-num{
+  font-family:var(--font-serif);
+  font-size:2.8rem;font-weight:300;
+  color:var(--gold);line-height:1;
+  margin-bottom:0.3rem;
+}
+.about-stat-label{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);}
+
+/* ── MENU ── */
+.menu-tabs{display:flex;gap:0;margin-bottom:3.5rem;border-bottom:1px solid var(--border);}
+.menu-tab{
+  font-size:0.75rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);background:transparent;border:none;
+  padding:1rem 2rem;cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all 0.25s;font-family:var(--font-body);
+}
+.menu-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);}
+.menu-item{
+  background:var(--card);padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;
+  align-items:flex-start;gap:2rem;
+  transition:background 0.2s;
+}
+.menu-item:hover{background:#1a1a17;}
+.menu-item-left{flex:1;}
+.menu-item-name{
+  font-family:var(--font-serif);
+  font-size:1.2rem;font-weight:400;
+  color:var(--white);margin-bottom:0.4rem;
+  letter-spacing:0.03em;
+}
+.menu-item-desc{font-size:0.82rem;color:var(--muted);line-height:1.65;}
+.menu-item-tag{
+  display:inline-block;margin-top:0.5rem;
+  font-size:0.65rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(201,168,76,0.3);
+  padding:2px 8px;
+}
+.menu-item-price{
+  font-family:var(--font-serif);
+  font-size:1.3rem;font-weight:300;
+  color:var(--gold);white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* ── EXPERIENCE ── */
+.experience{background:var(--dark);}
+.exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);}
+.exp-card{
+  background:var(--card);padding:3rem 2.5rem;
+  text-align:center;
+}
+.exp-icon{
+  width:48px;height:48px;margin:0 auto 1.5rem;
+  border:1px solid rgba(201,168,76,0.3);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--gold);font-size:1.2rem;
+}
+.exp-name{
+  font-family:var(--font-serif);
+  font-size:1.3rem;font-weight:400;
+  color:var(--white);margin-bottom:0.75rem;
+  letter-spacing:0.04em;
+}
+.exp-desc{font-size:0.85rem;color:var(--muted);line-height:1.75;}
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.testi-card{
+  background:var(--card);border:1px solid var(--border);
+  padding:2.5rem;
+}
+.testi-stars{color:var(--gold);font-size:0.8rem;letter-spacing:0.15em;margin-bottom:1.25rem;}
+.testi-text{
+  font-family:var(--font-serif);
+  font-size:1.05rem;font-style:italic;font-weight:300;
+  color:var(--white);line-height:1.75;margin-bottom:1.5rem;
+}
+.testi-author{font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);}
+.testi-source{font-size:0.7rem;color:var(--gold);letter-spacing:0.1em;}
+
+/* ── RESERVATION ── */
+.reservation{background:var(--dark);}
+.res-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;}
+.res-info{display:flex;flex-direction:column;gap:2rem;}
+.res-item-label{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem;}
+.res-item-val{font-size:1rem;color:var(--white);line-height:1.6;}
+.res-form{display:flex;flex-direction:column;gap:1rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.form-input{
+  background:var(--card);border:1px solid var(--border);
+  color:var(--white);padding:15px 18px;
+  font-family:var(--font-body);font-size:0.88rem;
+  width:100%;outline:none;transition:border-color 0.2s;
+  -webkit-appearance:none;
+}
+.form-input::placeholder{color:var(--muted);}
+.form-input:focus{border-color:var(--gold);}
+.form-submit{
+  background:var(--gold);color:var(--black);
+  font-family:var(--font-body);font-weight:500;
+  font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;
+  border:none;padding:18px;cursor:pointer;
+  transition:opacity 0.2s;width:100%;
+}
+.form-submit:hover{opacity:0.85;}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);
+  padding:3rem 6%;
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  align-items:center;gap:2rem;
+}
+.footer-logo{
+  font-family:var(--font-serif);
+  font-size:1.6rem;font-weight:600;
+  letter-spacing:0.18em;color:var(--gold);
+}
+.footer-center{text-align:center;}
+.footer-copy{font-size:0.75rem;color:var(--muted);}
+.footer-right{text-align:right;}
+.footer-social{display:flex;gap:1.25rem;justify-content:flex-end;}
+.footer-social a{
+  font-size:0.7rem;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--muted);
+  text-decoration:none;transition:color 0.2s;
+}
+.footer-social a:hover{color:var(--gold);}
+
+/* ── FLOATING CTA ── */
+.floating-cta{
+  position:fixed;bottom:2rem;right:2rem;z-index:200;
+  background:var(--gold);color:var(--black);
+  font-family:var(--font-body);font-weight:500;
+  font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;
+  border:none;padding:14px 22px;cursor:pointer;
+  text-decoration:none;display:inline-block;
+  box-shadow:0 4px 30px rgba(201,168,76,0.2);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hero-right{display:none;}
+  .about-grid,.res-grid{grid-template-columns:1fr;}
+  .menu-grid,.exp-grid,.testimonials-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;text-align:center;}
+  .footer-social{justify-content:center;}
+  .footer-right{text-align:center;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════
+     NAVIGATION
+     Change: logo name, links
+════════════════════════ -->
+<nav>
+  <a href="#" class="nav-logo">NOIR</a>
+  <ul class="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#reservation">Reserve</a></li>
+  </ul>
+  <a href="#reservation" class="nav-reserve">Reserve a Table</a>
+</nav>
+
+
+<!-- ══════════════════════
+     HERO
+     Change: eyebrow text, title,
+     subtitle, award text
+════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <div class="hero-eyebrow-text">Fine Dining — Est. 2018</div>
+    </div>
+    <h1 class="hero-title">Where<br>flavor<br>meets <em>art.</em></h1>
+    <p class="hero-sub">An intimate dining experience crafted for those who believe a meal should be a memory. Seasonal ingredients, timeless technique.</p>
+    <div class="hero-btns">
+      <a href="#menu" class="btn-gold">Explore Menu</a>
+      <a href="#reservation" class="btn-ghost">Reserve a Table</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-award">Michelin Recommended</div>
+    <div class="hero-award-sub">2023 · 2024</div>
+    <div class="hero-award" style="margin-top:0.5rem;">Best Ambiance</div>
+    <div class="hero-award-sub">City Food Awards</div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+<!-- ══════════════════════
+     ABOUT / STORY
+     Change: paragraphs, stats
+════════════════════════ -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-img">
+      <!-- Replace with: <img src="restaurant-interior.jpg" style="width:100%;height:100%;object-fit:cover;"/> -->
+      Your photo here
+    </div>
+    <div class="about-text">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Our Story</div>
+      </div>
+      <h2 class="section-title">Born from<br><em>passion.</em></h2>
+      <p>NOIR was born from a simple conviction: that dining is not just about eating — it's about feeling something. Chef Marco Valdés spent fifteen years in kitchens across Europe before returning home with a singular vision.</p>
+      <p>Every dish on our menu tells a story. We source directly from local farms, work with the seasons, and let the ingredients speak. No shortcuts. No compromises.</p>
+      <p>Our dining room holds just 36 guests at a time. Every detail — the lighting, the music, the space between tables — is intentional. You come here to be present.</p>
+      <div class="about-stats">
+        <div>
+          <div class="about-stat-num">36</div>
+          <div class="about-stat-label">Seats Only</div>
+        </div>
+        <div>
+          <div class="about-stat-num">6+</div>
+          <div class="about-stat-label">Years Open</div>
+        </div>
+        <div>
+          <div class="about-stat-num">100%</div>
+          <div class="about-stat-label">Local Sourced</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+<!-- ══════════════════════
+     MENU
+     Change: dish names, descriptions,
+     dietary tags, prices
+════════════════════════ -->
+<section id="menu">
+  <div class="section-header">
+    <div>
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Seasonal Menu</div>
+      </div>
+      <h2 class="section-title">Crafted with<br><em>intention.</em></h2>
+    </div>
+    <p class="section-sub">Our menu changes with the seasons. What you see today may not be here tomorrow — and that's the point.</p>
+  </div>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active">Starters</button>
+    <button class="menu-tab">Mains</button>
+    <button class="menu-tab">Desserts</button>
+    <button class="menu-tab">Drinks</button>
+  </div>
+
+  <div class="menu-grid">
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Burrata & Heirloom Tomato</div>
+        <div class="menu-item-desc">Whipped burrata, slow-roasted heirlooms, basil oil, aged balsamic, sourdough crisp.</div>
+        <span class="menu-item-tag">Vegetarian</span>
+      </div>
+      <div class="menu-item-price">$18</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Seared Scallops</div>
+        <div class="menu-item-desc">Pan-seared scallops, cauliflower purée, crispy capers, brown butter, micro herbs.</div>
+        <span class="menu-item-tag">Gluten Free</span>
+      </div>
+      <div class="menu-item-price">$24</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Wagyu Beef Tartare</div>
+        <div class="menu-item-desc">Hand-cut A5 wagyu, shallots, Dijon, quail egg, black truffle, rye toast.</div>
+        <span class="menu-item-tag">Chef's Pick</span>
+      </div>
+      <div class="menu-item-price">$32</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Roasted Bone Marrow</div>
+        <div class="menu-item-desc">Split marrow bone, chimichurri, pickled red onion, grilled sourdough, sea salt.</div>
+      </div>
+      <div class="menu-item-price">$22</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Black Truffle Arancini</div>
+        <div class="menu-item-desc">Saffron risotto balls, black truffle, fontina, wild mushroom cream, pecorino.</div>
+        <span class="menu-item-tag">Vegetarian</span>
+      </div>
+      <div class="menu-item-price">$19</div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-item-left">
+        <div class="menu-item-name">Tuna Crudo</div>
+        <div class="menu-item-desc">Yellowfin tuna, yuzu kosho, avocado, cucumber, sesame, crispy shallots.</div>
+        <span class="menu-item-tag">Gluten Free</span>
+      </div>
+      <div class="menu-item-price">$26</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+<!-- ══════════════════════
+     EXPERIENCE
+     Change: card icons, names, descriptions
+════════════════════════ -->
+<section class="experience" id="experience">
+  <div class="section-header">
+    <div>
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">The Experience</div>
+      </div>
+      <h2 class="section-title">Every detail<br><em>considered.</em></h2>
+    </div>
+  </div>
+  <div class="exp-grid">
+
+    <div class="exp-card">
+      <div class="exp-icon">✦</div>
+      <div class="exp-name">Private Dining</div>
+      <p class="exp-desc">Our private room seats up to 12. Perfect for celebrations, business dinners, and moments that deserve their own space.</p>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">✦</div>
+      <div class="exp-name">Wine Pairing</div>
+      <p class="exp-desc">Our sommelier curates a pairing for every tasting menu. Over 400 labels from small producers across four continents.</p>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-icon">✦</div>
+      <div class="exp-name">Chef's Table</div>
+      <p class="exp-desc">Sit at the kitchen counter and watch the team work. A 7-course tasting menu, paced to the rhythm of the night.</p>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+<!-- ══════════════════════
+     TESTIMONIALS
+     Change: quotes, author names, sources
+════════════════════════ -->
+<section>
+  <div class="section-header">
+    <div>
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">What People Say</div>
+      </div>
+      <h2 class="section-title">Experiences<br><em>remembered.</em></h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The wagyu tartare alone is worth the trip. But it's the atmosphere — quiet, warm, unhurried — that keeps me coming back."</p>
+      <div class="testi-author">— Catherine M.</div>
+      <div class="testi-source">Google Reviews</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Chef Valdés has created something rare: a restaurant that feels intimate without feeling small. Exceptional from start to finish."</p>
+      <div class="testi-author">— The City Table</div>
+      <div class="testi-source">Food Magazine, 2024</div>
+    </div>
+
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"We booked the chef's table for our anniversary. It was unlike anything we've experienced. We've already booked again."</p>
+      <div class="testi-author">— James & Lena R.</div>
+      <div class="testi-source">TripAdvisor</div>
+    </div>
+
+  </div>
+</section>
+
+<div class="sep"></div>
+
+
+<!-- ══════════════════════
+     RESERVATION / CONTACT
+     Change: address, hours, phone, email.
+     To make form work: use formspree.io
+════════════════════════ -->
+<section class="reservation" id="reservation">
+  <div class="section-header">
+    <div>
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Reservations</div>
+      </div>
+      <h2 class="section-title">Join us for<br><em>dinner.</em></h2>
+    </div>
+    <p class="section-sub">We recommend booking at least 3 days in advance. Walk-ins welcome based on availability.</p>
+  </div>
+  <div class="res-grid">
+
+    <div class="res-info">
+      <div>
+        <div class="res-item-label">Location</div>
+        <div class="res-item-val">14 Rue de l'Artisan<br>New York, NY 10014</div>
+      </div>
+      <div>
+        <div class="res-item-label">Hours</div>
+        <div class="res-item-val">
+          Tuesday – Thursday: 6pm – 10pm<br>
+          Friday – Saturday: 6pm – 11pm<br>
+          Sunday: 5pm – 9pm<br>
+          Monday: Closed
+        </div>
+      </div>
+      <div>
+        <div class="res-item-label">Phone</div>
+        <div class="res-item-val">+1 (212) 000-0000</div>
+      </div>
+      <div>
+        <div class="res-item-label">Email</div>
+        <div class="res-item-val">hello@noirrestaurant.com</div>
+      </div>
+    </div>
+
+    <div class="res-form">
+      <div class="form-row">
+        <input class="form-input" type="text" placeholder="First Name"/>
+        <input class="form-input" type="text" placeholder="Last Name"/>
+      </div>
+      <input class="form-input" type="email" placeholder="Email Address"/>
+      <input class="form-input" type="tel" placeholder="Phone Number"/>
+      <div class="form-row">
+        <input class="form-input" type="date" placeholder="Date"/>
+        <select class="form-input">
+          <option value="" disabled selected>Time</option>
+          <option>6:00 PM</option>
+          <option>6:30 PM</option>
+          <option>7:00 PM</option>
+          <option>7:30 PM</option>
+          <option>8:00 PM</option>
+          <option>8:30 PM</option>
+          <option>9:00 PM</option>
+        </select>
+      </div>
+      <select class="form-input">
+        <option value="" disabled selected>Number of Guests</option>
+        <option>1 Guest</option>
+        <option>2 Guests</option>
+        <option>3 Guests</option>
+        <option>4 Guests</option>
+        <option>5+ Guests (call us)</option>
+      </select>
+      <textarea class="form-input" rows="3" placeholder="Special requests or dietary requirements..."></textarea>
+      <button class="form-submit">Request Reservation →</button>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════
+     FOOTER
+     Change: name, social links, year
+════════════════════════ -->
+<footer>
+  <div class="footer-logo">NOIR</div>
+  <div class="footer-center">
+    <div class="footer-copy">© 2025 Noir Restaurant. All rights reserved.</div>
+    <div class="footer-copy" style="margin-top:0.4rem;">
+      Template by <a href="https://www.instagram.com/atelierwebstudio" style="color:var(--gold);text-decoration:none;">Atelier Web Studio</a>
+    </div>
+  </div>
+  <div class="footer-right">
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ══════════════════════
+     FLOATING CTA
+     Replace YOUR_NUMBER with WhatsApp
+     number (with country code, no spaces)
+════════════════════════ -->
+<a href="https://wa.me/YOUR_NUMBER" target="_blank" class="floating-cta">Reserve a Table</a>
+
+
+<script>
+const tabs = document.querySelectorAll('.menu-tab');
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
